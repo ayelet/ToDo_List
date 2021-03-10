@@ -66,27 +66,35 @@ class TaskListDisplay {
     this.taskList.tasks.forEach((task) => {
       console.log(task);
       let li = document.createElement("li");
+      li.classList.add("task-item");
       ul.appendChild(li);
 
       let innerDiv = document.createElement("div");
       innerDiv.classList.add("task");
       innerDiv.setAttribute("data-key", task.getTimeStamp());
       innerDiv.setAttribute("id", task.getId());
-      innerDiv.innerHTML = task.get();
       let completBtn = document.createElement("input");
       completBtn.classList.add("btn");
       completBtn.classList.add("task-complete");
       completBtn.setAttribute("type", "checkbox");
-
       innerDiv.appendChild(completBtn);
+      let span = document.createElement('span');
+      span.innerHTML = task.get();
+      span.classList.add('task-text');
+      innerDiv.appendChild(span);
+     
+
 
       let deleteBtn = document.createElement("input");
       deleteBtn.classList.add("btn");
       deleteBtn.classList.add("task-delete");
+      deleteBtn.classList.add("far");
+      deleteBtn.classList.add("fa-trash-alt");
+      deleteBtn.setAttribute("value", "\uf2ed");
       deleteBtn.setAttribute("type", "button");
       if (task.isDone()) {
         completBtn.checked = true;
-        innerDiv.style.textDecoration = "line-through";
+        span.style.textDecoration = "line-through";
       }
       innerDiv.appendChild(deleteBtn);
 
@@ -118,7 +126,7 @@ class TaskListDisplay {
   };
   completeTaskHandler = (e) => {
     try {
-      let id = parseInt(e.target.parent.id);
+      let id = parseInt(e.target.parentElement.id);
       // e.target.classList.toggle("completed");
       console.log("id of parent is ", id, e.target.checked);
       this.completeTask(id, e.target.checked);
