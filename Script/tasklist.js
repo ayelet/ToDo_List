@@ -35,7 +35,7 @@ Task.prototype.toJson = function() {
 Task.fromJson = function(json) {
     // var data = JSON.parse(json); // Parsing the json string.
     var data = json; // No need to parse, it is already a string
-    return new Task(data.id, data.description, data.done, data.priority, data.timeStamp);
+    return new Task(parseInt(data.id), data.description, data.done, parseInt(data.priority), parseInt(data.timeStamp));
 };
 
 class TaskList {

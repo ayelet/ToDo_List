@@ -82,9 +82,9 @@ class TaskListDisplay {
       span.innerHTML = task.get();
       span.classList.add('task-text');
       innerDiv.appendChild(span);
-     
-
-
+      
+      
+      
       let deleteBtn = document.createElement("input");
       deleteBtn.classList.add("btn");
       deleteBtn.classList.add("task-delete");
@@ -93,21 +93,23 @@ class TaskListDisplay {
       deleteBtn.setAttribute("value", "\uf2ed");
       deleteBtn.setAttribute("type", "button");
       if (task.isDone()) {
-        completBtn.checked = true;
-        span.style.textDecoration = "line-through";
-      }
-      innerDiv.appendChild(deleteBtn);
-
-      li.appendChild(innerDiv);
- 
-      let deleteBtns = document.querySelectorAll(".task-delete");
-      deleteBtns.forEach((btn) =>
+          completBtn.checked = true;
+          span.style.textDecoration = "line-through";
+        }
+        innerDiv.appendChild(deleteBtn);
+        
+        li.appendChild(innerDiv);
+        
+        let deleteBtns = document.querySelectorAll(".task-delete");
+        deleteBtns.forEach((btn) =>
         btn.addEventListener("click", this.deleteTaskHandler)
-      );
-      let completeBtns = document.querySelectorAll(".task-complete");
-      completeBtns.forEach((btn) =>
+        );
+        let completeBtns = document.querySelectorAll(".task-complete");
+        completeBtns.forEach((btn) =>
         btn.addEventListener("click", this.completeTaskHandler)
-      );
+        );
+        const  hr = document.createElement('hr');
+        innerDiv.appendChild(hr);
     });
   }
   clearInputField() {
