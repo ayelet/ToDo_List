@@ -59,7 +59,7 @@ class TaskList {
         let task = this.getTask(id);
         let i = this.tasks.indexOf(task);
         this.tasks.splice(i, 1);
-        TaskList.counter--;
+        // TaskList.counter--;
     } // D
     markAsDone(id, mark) {
         let task = this.getTask(id);

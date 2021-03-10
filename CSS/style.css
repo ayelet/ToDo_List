@@ -115,3 +115,14 @@ hr {
     border-bottom: none;
     color: cadetblue;
 }
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    justify-content: space-between;
+}
+
+li {
+    display: flex;
+}
