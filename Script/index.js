@@ -1,75 +1,160 @@
-// ToDo List - Ayelet Danieli
 
-class Task {
-    constructor(id, description="") {
-        this.description = description;
-        this.id = id;
-        this.done = false;
-    }
-    get() { return this.description;}
-    getId() { return this.id; }
-    set(newDescription) { this.description = newDescription}
-    isDone() { return this.done; }
-    toString() { return `Task[${this.id}]: ${this.description} Done:[${this.done ? "yes":"no"}]`}
-}
 
-class TaskList {
+
+
+class TaskListDisplay {
     constructor() {
-        this.tasks = [];
-    }
+        this.taskList = new TaskList();
+        this.displayStyle = TaskListDisplay.Style.list;
+        let i=0;
 
-    createTask(taskData="") {
-        this.tasks.push(new Task(TaskList.counter, taskData));
-        TaskList.counter++;
-    } //C
-    getTask(id) {
-        return this.tasks.find(task => task.id === id)
-    } //R
-    updateTask(id, newData) {
-        let task =this.getTask(id);
-      if (task)
-            task.set(newData);
-    } //U
+        this.getFromLocalStorage();
+    }
+    add(text) {
+        this.taskList.createTask(text);
+        this.taskList.print(); // prints to console log
+        console.log("adding new task:", text);
+        this.addToLocalStorage();
+        this.updateDisplay();
+        this.clearInputField();  
+    }
+    
     removeTask(id) {
-        let task = this.getTask(id);
-        let i = this.tasks.indexOf(task);
-        this.tasks.splice(i, 1);
-        TaskList.counter--;
-    } // D
-    markAsDone(id, mark) {
-        let task = this.getTask(id);
-        if (task)
-            task.done = mark;
-     }
-    print() { 
-        console.log("To Do List:");
-        this.tasks.forEach(task => {
-            console.log(task.toString());
-        })
+        this.taskList.removeTask(id);
+        console.log("removing ", id);
+        this.addToLocalStorage()
+        this.updateDisplay();
     }
-    list() {
-        this.tasks.sort((t1, t2) => t1.isDone() - t2.isDone());
+    updateTask(taskId, newText) {
+        this.taskList.updateTask(taskId, newText);
+        this.addToLocalStorage()
+        this.updateDisplay();
     }
-    static counter =0;
+    completeTask(taskId, isDone) {
+        this.taskList.markAsDone(taskId, isDone);
+        this.addToLocalStorage();
+        this.updateDisplay();
+    }
+    async addToLocalStorage() {
+        let data = JSON.stringify(this.taskList.tasks);
+        localStorage.setItem('tasks', data);
+    } // write tasks to local storage
+    getFromLocalStorage() {
+        const storage = localStorage.getItem('tasks');
+        if (storage) {
+            let data = JSON.parse(storage);
+            console.log(data);
+            let i=0;
+            while(i < data.length) {
+                let task = Task.fromJson(data[i]);
+                console.log(task instanceof Task);
+                // task.print();
+                this.taskList.tasks.push(task);
+                i++;
+            }
+        }
+        this.updateDisplay();
+    } // fetch tasks to local storage
+
+
+
+    updateDisplay() {
+       let taskContainer = document.querySelector('.task-list-container');
+       taskContainer.innerHTML = "";
+       let ul = document.createElement('ul');
+       ul.classList.add('task-list');
+       taskContainer.appendChild(ul);
+    //    taskContainer.innerHTML = "";
+    //    let innerText = "";
+       this.taskList.tasks.forEach(task => {
+           console.log(task);
+           let element = document.createElement('li');
+           element.classList.add('task');
+           element.setAttribute("data-key", task.getTimeStamp());
+           element.setAttribute("id", task.getId());
+           element.textContent = task.get();
+           let completBtn = document.createElement('input');
+           completBtn.classList.add('btn');
+           completBtn.classList.add('task-complete');
+           completBtn.setAttribute("type", "checkbox");
+           element.appendChild(completBtn);
+           ul.appendChild(element);
+           let deleteBtn = document.createElement('input');
+           deleteBtn.classList.add('btn');
+           deleteBtn.classList.add('task-delete');
+           deleteBtn.setAttribute("type", "button");
+           element.appendChild(deleteBtn);
+         
+        //     innerText += `<div class="task" data-key=${task.getTimeStamp()} id=${task.getId()}>`;
+        //     innerText += `<input class="task-text text" type="text" disabled value="${task.get()}"`; 
+        //    if (task.isDone) {
+
+        //        innerText += ` style="text-decoration: line-through;">`;
+        //        innerText += `<input type="checkbox" class="btn task-complete">`;
+        //     } else {
+        //         innerText += ` style="text-decoration: none;">`;
+        //         innerText += `<input type="checkbox" class="btn task-complete">`
+                
+        //     }
+        //    innerText += `<input class="btn task-delete fa fa-minus-circle" value="&#xf056" type="button"></div><hr>`;
+       
+        //    taskContainer.innerHTML = innerText;
+           let deleteBtns = document.querySelectorAll('.task-delete');
+           deleteBtns.forEach(btn => btn.addEventListener('click', this.deleteTaskHandler));
+           let completeBtns = document.querySelectorAll('.task-complete');
+           completeBtns.forEach(btn => btn.addEventListener('click', this.completeTaskHandler));
+       });
+    }
+    clearInputField() {
+        let textField = document.querySelector('.input-field');
+        textField.value = "";
+    }
+    //!!!- use arrow function as event handlers in order to bind the appropriate this
+    deleteTaskHandler = (e)  => {
+        try {
+
+            let id = parseInt(e.target.parentElement.id);
+            // console.log("id of parent is ", id, this);
+            this.removeTask(id);
+            
+        } catch (err) {
+            console.log("deleteTaskHandler: ", err);
+        }
+    }
+    completeTaskHandler = (e) => {
+        try {
+            let id = parseInt(e.target.parentElement.id);
+            // e.target.classList.toggle("completed");
+            console.log("id of parent is ", id, e.target.checked);
+            this.completeTask(id, e.target.checked);
+            // e.target.previousElementSibling.style.textDecoration = "line-through";
+        } catch (err) {
+            console.log("completeTaskHandler: ", err);
+        }
+    }
+    static Style = { list: 0, notes: 1};
 }
 
-const toDo = new TaskList();
-toDo.createTask("Go to Post office");
-toDo.createTask("Send greetings");
-toDo.createTask("Buy notebooks for school");
-toDo.createTask("Cook soup");
-toDo.createTask("Make sushi");
-toDo.createTask("Go to dentist");
-toDo.createTask("Go shopping");
 
-toDo.print();
-toDo.updateTask(0, toDo.getTask(0).get() + ": updated!!!");
-toDo.updateTask(1, "send greeting cards");
-toDo.print();
-toDo.removeTask(3);
-toDo.removeTask(10); // remove task that doesn't exist
-toDo.print();
-toDo.markAsDone(0, true);
-toDo.markAsDone(4, true);
-toDo.list();
-toDo.print();
+
+
+
+function main() {
+    let storage = window.localStorage;
+    taskListDisplay = new TaskListDisplay();
+    let add = document.querySelector('.new-task-btn');
+    add.addEventListener('click', (e) => {
+        let text = document.querySelector(".input-field").value;
+        taskListDisplay.add(text);
+    });
+  
+    
+  
+
+}
+
+
+let taskListDisplay = null;
+window.onload = (event) => {
+    main();
+  };
