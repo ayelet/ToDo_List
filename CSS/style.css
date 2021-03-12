@@ -9,9 +9,9 @@
     position: relative;
     outline: none;
     border-radius: 50%;
-    color: #ffffff;
+    color: white;
     border-color: white;
-    background: #8dc2d4;
+    background: #387f99;
 }
 .text {
     line-height: 2.2rem;
@@ -74,7 +74,7 @@ body {
     padding: 0;
     background: #efefef;
     text-align: center;
-    background: url('../img/background.jpg') no-repeat center center/cover ;
+    background: url('../img/background.webp') no-repeat center center/cover ;
     font-family: 'Happy Monkey', cursive;
     font-size: 1.5rem
   }
@@ -87,7 +87,6 @@ body {
     height: 350px;
     background: #fff;
     border-radius: 12px;
-    /* background: url('../img/paper_texture.jpg') no-repeat center center/cover; */
     background-color: #faf46c;
   }
   
@@ -135,16 +134,12 @@ hr {
 }
 
 .task-list {
-    /* display: flex; */
     flex-direction: column;
-    /* font-size: 2rem; */
     justify-content: space-between;
     padding: 0;
 }
 
 .task-item {
-    /* display: flex; */
-    /* justify-content: space-between; */
     list-style: none;
 }
 .task-text {
