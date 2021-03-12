@@ -1,153 +1,161 @@
-
 :root {
-    --primaryColor: #8dc2d4;
+  --primaryColor: #387f99;
+  --backgroundColor: #faf46c;
+  --textColor: white;
 }
-.btn { 
-    width: 2rem;
-    height: 2rem;
-    margin: 2px;
-    position: relative;
-    outline: none;
-    border-radius: 50%;
-    color: white;
-    border-color: white;
-    background: #387f99;
+.btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 2px;
+  position: relative;
+  outline: none;
+  border-radius: 50%;
+  color: var(--textColor);
+  border-color: white;
+  background: var(--primaryColor);
 }
 .text {
-    line-height: 2.2rem;
-    font-size: 1.2rem;
-    border-radius:15px;
+  line-height: 2.2rem;
+  font-size: 1.2rem;
+  border-radius: 15px;
 }
 .title {
-    font-family: 'Playball', cursive;
-    padding-top: 20px;
-    padding-bottom: 5px;
+  font-family: "Playball", cursive;
+  padding-top: 20px;
+  padding-bottom: 5px;
 }
 .frame {
-    border: 3px solid cadetblue;
-    border-radius:12px;
-    margin: 12px;
+  border: 3px solid var(--primaryColor);
+  border-radius: 12px;
+  margin: 12px;
 }
 .completed {
-    background: url('../img/1x/round_done_outline_black_18dp.png') no-repeat center center/cover;
+  background: url("../img/1x/round_done_outline_black_18dp.png") no-repeat
+    center center/cover;
 }
 
 .task {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4px 12px;
 }
 .task-text {
-    width: 100%;
-    margin: 5px;
-    height: inherit;
-    background: transparent;
-    border: none;
+  width: 100%;
+  margin: 5px;
+  height: inherit;
+  background: transparent;
+  border: none;
 }
 
 .new-task-container {
-    height: 2.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 10px;
-    
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 10px;
 }
 .new-task-btn {
-    font-size: 20px;
+  font-size: 20px;
 }
 .task-list-container {
-    min-height: 50%;
-    height: fit-content;
+  min-height: 50%;
+  height: fit-content;
 }
 .input-field {
-    width: 100%;
-    margin-top: 2px;
-    border-radius:15px;
-    border-color: var(--primaryColor);
-    outline: none;
+  width: 100%;
+  margin-top: 2px;
+  border-radius: 15px;
+  border-color: var(--primaryColor);
+  outline: none;
 }
+
 
 body {
     margin: 0;
     padding: 0;
-    background: #efefef;
     text-align: center;
-    background: url('../img/background.webp') no-repeat center center/cover ;
-    font-family: 'Happy Monkey', cursive;
-    font-size: 1.5rem
-  }
-  
-  .box {
-    position: relative;
-    margin: 40px auto;
-    margin-top: 10px;
-    width: 400px;
-    height: 350px;
-    background: #fff;
-    border-radius: 12px;
-    background-color: #faf46c;
-  }
-  
-  .box::before,
-  .box::after {
-    content: '';
-    position: absolute;
-    bottom: 10px;
-    width: 40%;
-    height: 10px;
-    box-shadow: 0 5px 14px rgba(0,0,0,.7);
-    z-index: -1;
-    transition: all .3s ease-in-out;
-  }
-  
-  .box::before {
-    left: 15px;
-    transform: skew(-5deg) rotate(-5deg);
-  }
-  
-  .box::after {
-    right: 15px;
-    transform: skew(5deg) rotate(5deg);
-  }
-  
-  .box:hover::before,
-  .box:hover::after {
-    box-shadow: 0 2px 14px rgba(0,0,0,.4);
-  }
-  
-  .box:hover::before {
-    left: 5px;
-  }
-  
-  .box:hover::after {
-    right: 5px;
-  }
+    background: url("../img/background.webp") no-repeat center center fixed;
+    font-family: "Happy Monkey", cursive;
+    font-size: 1.5rem;
+    height: 100%;
+    position: top;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; 
+}
 
-  
+.box {
+  position: relative;
+  margin: 40px auto;
+  margin-top: 10px;
+  min-width: 400px;
+  width: 40vw;
+  min-height: 350px;
+  height: fit-content;
+  background: #fff;
+  border-radius: 12px;
+  background-color: var(--backgroundColor);
+}
+
+.box::before,
+.box::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  width: 40%;
+  height: 10px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.7);
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
+.box::before {
+  left: 15px;
+  transform: skew(-5deg) rotate(-5deg);
+}
+
+.box::after {
+  right: 15px;
+  transform: skew(5deg) rotate(5deg);
+}
+
+.box:hover::before,
+.box:hover::after {
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.box:hover::before {
+  left: 5px;
+}
+
+.box:hover::after {
+  right: 5px;
+}
+
 hr {
-    padding: 0;
-    margin: 0;
-    border-bottom: none;
-    color: cadetblue;
+  padding: 0;
+  margin: 0;
+  border-bottom: none;
+  color: var(--primaryColor);
 }
 
 .task-list {
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
 }
 
 .task-item {
-    list-style: none;
+  list-style: none;
 }
 .task-text {
-    text-align: left;
+  text-align: left;
 }
 
 .task-delete {
-    font-size: small;
+  font-size: small;
 }
 
 /* ////////////////////
@@ -164,29 +172,29 @@ hr {
   }
   
   /* On mouse-over, add a grey background color */
-  /* .container:hover input ~ .checkmark {
+/* .container:hover input ~ .checkmark {
     background-color: #f00;
   } */
-  
-  /* When the checkbox is checked, add a blue background */
-  /* input:checked ~ .checkmark {
+
+/* When the checkbox is checked, add a blue background */
+/* input:checked ~ .checkmark {
     background-color: #2196F3;
   } */
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  /* .checkmark:after {
+
+/* Create the checkmark/indicator (hidden when not checked) */
+/* .checkmark:after {
     content: "";
     position: absolute;
     display: none;
   } */
-  
-  /* Show the checkmark when checked */
- /* input:checked ~ .checkmark:after {
+
+/* Show the checkmark when checked */
+/* input:checked ~ .checkmark:after {
     display: block;
   } */
-  
-  /* Style the checkmark/indicator */
-  /*.checkmark:after {
+
+/* Style the checkmark/indicator */
+/*.checkmark:after {
     left: 9px;
     top: 5px;
     width: 5px;

@@ -22,7 +22,7 @@ class Task {
     
 }
 
-Task.prototype.toJson = function() {
+Task.toJson = function() {
     return JSON.stringify({
         description: this.description, 
         id: this.id, 
@@ -38,6 +38,7 @@ Task.fromJson = function(json) {
     return new Task(parseInt(data.id), data.description, data.done, parseInt(data.priority), parseInt(data.timeStamp));
 };
 
+// module.exports = 
 class TaskList {
     constructor() {
         this.tasks = [];
@@ -57,8 +58,10 @@ class TaskList {
     } //U
     removeTask(id) {
         let task = this.getTask(id);
-        let i = this.tasks.indexOf(task);
-        this.tasks.splice(i, 1);
+        if (task){
+            let i = this.tasks.indexOf(task);
+            this.tasks.splice(i, 1);
+        }
         // TaskList.counter--;
     } // D
     markAsDone(id, mark) {
@@ -72,9 +75,11 @@ class TaskList {
             console.log(task.toString());
         })
     }
+    // sort all items by uncompleted/complete
     list() {
         this.tasks.sort((t1, t2) => t1.isDone() - t2.isDone());
     }
+    getLength()  { return this.tasks.length; }
     static counter =0;
 }
 
@@ -98,3 +103,4 @@ class TaskList {
 // toDo.markAsDone(4, true);
 // toDo.list();
 // toDo.print();
+

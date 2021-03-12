@@ -1,3 +1,9 @@
+// const TaskList = require('./tasklist');
+// const Task = require('./tasklist.js');
+// const Task = require('./tasklist');
+// import {TaskList} from '../Script/tasklist.js';
+// import {Task} from '../Script/tasklist.js';
+
 class TaskListDisplay {
   constructor() {
     this.taskList = new TaskList();
@@ -38,7 +44,7 @@ class TaskListDisplay {
   } // write tasks to local storage
   getFromLocalStorage() {
     const counter = localStorage.getItem("TaskCounter");
-    TaskList.counter = counter;
+    TaskList.counter = Number(counter);
     const storage = localStorage.getItem("tasks");
     if (storage) {
       let data = JSON.parse(storage);
@@ -61,10 +67,7 @@ class TaskListDisplay {
     let ul = document.createElement("ul");
     ul.classList.add("task-list");
     taskContainer.appendChild(ul);
-    //    taskContainer.innerHTML = "";
-    //    let innerText = "";
     this.taskList.tasks.forEach((task) => {
-      console.log(task);
       let li = document.createElement("li");
       li.classList.add("task-item");
       ul.appendChild(li);
@@ -78,13 +81,19 @@ class TaskListDisplay {
       completBtn.classList.add("task-complete");
       completBtn.setAttribute("type", "checkbox");
       innerDiv.appendChild(completBtn);
-      let span = document.createElement('span');
-      span.innerHTML = task.get();
-      span.classList.add('task-text');
+      let span = document.createElement("span");
+      span.classList.add("checkmark");
       innerDiv.appendChild(span);
-      
-      
-      
+      let taskText = document.createElement("input");
+
+      taskText.value = task.get();
+      taskText.classList.add("task-text");
+      taskText.setAttribute("type", "text");
+      taskText.setAttribute("aria-label", "Task description");
+      taskText.disabled = true;
+
+      innerDiv.appendChild(taskText);
+
       let deleteBtn = document.createElement("input");
       deleteBtn.classList.add("btn");
       deleteBtn.classList.add("task-delete");
@@ -92,24 +101,26 @@ class TaskListDisplay {
       deleteBtn.classList.add("fa-trash-alt");
       deleteBtn.setAttribute("value", "\uf2ed");
       deleteBtn.setAttribute("type", "button");
+      deleteBtn.setAttribute("aria-label", "Delete task");
       if (task.isDone()) {
-          completBtn.checked = true;
-          span.style.textDecoration = "line-through";
-        }
-        innerDiv.appendChild(deleteBtn);
-        
-        li.appendChild(innerDiv);
-        
-        let deleteBtns = document.querySelectorAll(".task-delete");
-        deleteBtns.forEach((btn) =>
+        completBtn.checked = true;
+        taskText.style.textDecoration = "line-through";
+      }
+      innerDiv.appendChild(deleteBtn);
+
+      li.appendChild(innerDiv);
+
+      let deleteBtns = document.querySelectorAll(".task-delete");
+      deleteBtns.forEach((btn) =>
         btn.addEventListener("click", this.deleteTaskHandler)
-        );
-        let completeBtns = document.querySelectorAll(".task-complete");
-        completeBtns.forEach((btn) =>
-        btn.addEventListener("click", this.completeTaskHandler)
-        );
-        const  hr = document.createElement('hr');
-        innerDiv.appendChild(hr);
+      );
+      let completeBtns = document.querySelectorAll(".task-complete");
+      completeBtns.forEach((btn) => {
+        btn.addEventListener("click", this.completeTaskHandler);
+        btn.setAttribute("aria-label", "check for task completed");
+      });
+      const hr = document.createElement("hr");
+      innerDiv.appendChild(hr);
     });
   }
   clearInputField() {
@@ -120,7 +131,6 @@ class TaskListDisplay {
   deleteTaskHandler = (e) => {
     try {
       let id = parseInt(e.target.parentElement.id);
-      // console.log("id of parent is ", id, this);
       this.removeTask(id);
     } catch (err) {
       console.log("deleteTaskHandler: ", err);
@@ -129,10 +139,8 @@ class TaskListDisplay {
   completeTaskHandler = (e) => {
     try {
       let id = parseInt(e.target.parentElement.id);
-      // e.target.classList.toggle("completed");
       console.log("id of parent is ", id, e.target.checked);
       this.completeTask(id, e.target.checked);
-      // e.target.previousElementSibling.style.textDecoration = "line-through";
     } catch (err) {
       console.log("completeTaskHandler: ", err);
     }
