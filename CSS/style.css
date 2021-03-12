@@ -52,6 +52,10 @@
     justify-content: center;
     align-items: center;
     padding: 8px 10px;
+    
+}
+.new-task-btn {
+    font-size: 20px;
 }
 .task-list-container {
     min-height: 50%;
@@ -151,3 +155,50 @@ hr {
     font-size: small;
 }
 
+/* ////////////////////
+// custom checkbox */
+/* Create a custom checkbox */
+/* TODO-implement custom checkbox */
+/* .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  /* .container:hover input ~ .checkmark {
+    background-color: #f00;
+  } */
+  
+  /* When the checkbox is checked, add a blue background */
+  /* input:checked ~ .checkmark {
+    background-color: #2196F3;
+  } */
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  /* .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  } */
+  
+  /* Show the checkmark when checked */
+ /* input:checked ~ .checkmark:after {
+    display: block;
+  } */
+  
+  /* Style the checkmark/indicator */
+  /*.checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  } */
