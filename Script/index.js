@@ -76,16 +76,25 @@ class TaskListDisplay {
       innerDiv.classList.add("task");
       innerDiv.setAttribute("data-key", task.getTimeStamp());
       innerDiv.setAttribute("id", task.getId());
+      // innerDiv.style.position = "relative";
+
+      // create the checkbox for task-complete
+      let checkboxContainer = document.createElement('div');
+      checkboxContainer.classList.add('checkbox-container');
       let completBtn = document.createElement("input");
-      completBtn.classList.add("btn");
+      // completBtn.classList.add("btn");
       completBtn.classList.add("task-complete");
       completBtn.setAttribute("type", "checkbox");
-      innerDiv.appendChild(completBtn);
-      let span = document.createElement("span");
-      span.classList.add("checkmark");
-      innerDiv.appendChild(span);
-      let taskText = document.createElement("input");
+      checkboxContainer.append(completBtn);
+      // innerDiv.appendChild(completBtn);
+      let customCheckmark = document.createElement("span");
+      customCheckmark.classList.add("checkmark");
+      customCheckmark.classList.add("far");
+      checkboxContainer.append(customCheckmark);
+      innerDiv.appendChild(checkboxContainer);
 
+      // create the text field of the task
+      let taskText = document.createElement("input");
       taskText.value = task.get();
       taskText.classList.add("task-text");
       taskText.setAttribute("type", "text");
@@ -93,7 +102,7 @@ class TaskListDisplay {
       taskText.disabled = true;
 
       innerDiv.appendChild(taskText);
-
+      // create the delete button
       let deleteBtn = document.createElement("input");
       deleteBtn.classList.add("btn");
       deleteBtn.classList.add("task-delete");
@@ -104,7 +113,12 @@ class TaskListDisplay {
       deleteBtn.setAttribute("aria-label", "Delete task");
       if (task.isDone()) {
         completBtn.checked = true;
+        
+        customCheckmark.classList.add("fa-check-circle");
         taskText.style.textDecoration = "line-through";
+      }
+      else {
+        customCheckmark.classList.add("fa-circle");
       }
       innerDiv.appendChild(deleteBtn);
 
@@ -138,7 +152,7 @@ class TaskListDisplay {
   };
   completeTaskHandler = (e) => {
     try {
-      let id = parseInt(e.target.parentElement.id);
+      let id = parseInt(e.target.parentElement.parentElement.id);
       console.log("id of parent is ", id, e.target.checked);
       this.completeTask(id, e.target.checked);
     } catch (err) {
