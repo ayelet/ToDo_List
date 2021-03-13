@@ -79,8 +79,8 @@ class TaskListDisplay {
       // innerDiv.style.position = "relative";
 
       // create the checkbox for task-complete
-      let checkboxContainer = document.createElement('div');
-      checkboxContainer.classList.add('checkbox-container');
+      let checkboxContainer = document.createElement("div");
+      checkboxContainer.classList.add("checkbox-container");
       let completBtn = document.createElement("input");
       // completBtn.classList.add("btn");
       completBtn.classList.add("task-complete");
@@ -113,11 +113,10 @@ class TaskListDisplay {
       deleteBtn.setAttribute("aria-label", "Delete task");
       if (task.isDone()) {
         completBtn.checked = true;
-        
+
         customCheckmark.classList.add("fa-check-circle");
         taskText.style.textDecoration = "line-through";
-      }
-      else {
+      } else {
         customCheckmark.classList.add("fa-circle");
       }
       innerDiv.appendChild(deleteBtn);
@@ -166,9 +165,18 @@ function main() {
   let storage = window.localStorage;
   taskListDisplay = new TaskListDisplay();
   let add = document.querySelector(".new-task-btn");
+  let textField = document.querySelector(".input-field");
+  // taskListDisplay.add(text);
   add.addEventListener("click", (e) => {
-    let text = document.querySelector(".input-field").value;
+    let text = textField.value;
     taskListDisplay.add(text);
+  });
+
+  textField.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      let text = textField.value;
+      taskListDisplay.add(text);
+    }
   });
 }
 
