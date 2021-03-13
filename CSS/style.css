@@ -180,17 +180,13 @@ hr {
 }
 
 .checkbox-container span {
-  width: 30px;
+  width: 35px;
   height: 30px;
   display: block;
   border-radius: 12px;
   color: var(--primaryColor);
-  font-size:1.8rem !important;
+  font-size:2.2rem !important;
 }
 
-.checkbox-container .task-complete:checked + span {
-  color: var(--primaryColor);
-  font-size: 1.8rem !important;
-}
 
 
